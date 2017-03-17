@@ -36,11 +36,11 @@ class space(object):
             if (i.pos[j] <= 0) or (i.pos[j] >= self.limits[j]):
                 i.vel[j] = -(i.e * i.vel[j])
 
-        #Particle collision check
         a = self.p[0]
         b = self.p[1]
-
-        if 900 > ((a.vel[0] + b.vel[0])^2 + (a.vel[1] + b.vel[1])^2):#Pythagoras
+        #Check distance between particles (Pythagoras)
+        if 900 > ((a.vel[0] + b.vel[0])^2 + (a.vel[1] + b.vel[1])^2):
+            #If particles collided/overlapped, resolve collision
             relVel = []
             normal = []
             for i in range(2):
