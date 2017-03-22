@@ -33,17 +33,20 @@ class space(object):
             if (i.pos <= 0) or (i.pos >= 530):
                 i.vel = -(i.e * i.vel)
 
-            a = self.p[0]
-            b = self.p[1]
-            #Check distance between particles
-            if b.pos - a.pos <= 60:
+        a = self.p[0]
+        b = self.p[1]
+        #Check distance between particles
+        if b.pos - a.pos <= 60:
             #If particles collided/overlapped, determine if moving towards eachother
-                relVel = a.vel - b.vel
-                if (relVel > 0):
-                    e = min(a.e, b.e)
-                    impulse = (-(1+e)*relVel)/((1/a.mass)+(1/b.mass))
-                    a.vel -= (1/a.mass)*impulse
-                    b.vel += (1/a.mass)*impulse
+            relVel = a.vel - b.vel
+            if (relVel > 0):
+                e = min(a.e, b.e)
+                impulse = (-(1+e)*relVel)/((1/a.mass)+(1/b.mass))
+                a.vel -= (1/a.mass)*impulse
+                b.vel += (1/a.mass)*impulse
+        a.momentum = a.mass*a.vel
+        b.momentum = b.mass*b.vel
+        yield [a.pos, b.pos, a.momentum, b.momentum, sum(a.momentum, b.momentum)]
 
         return self
 
