@@ -4,28 +4,22 @@ Collision in one dimension
 9 Mar 2017
 '''
 
-
-#remove NumPy
-
 class space(object):
     def __init__(self, p):
-        '''Initiate particles and save initial conditions'''
+        '''Initiate particles with passed conditions:[[pos, vel, mass, e], ...]'''
         self.p = [particle(), particle()]
         for i in range(2):
-            #Extract pos for each particle
+            #Extract pos, vel, mass and e for each particle
             self.p[i].pos = p[i][0]
-            #Extract vel for each particle
             self.p[i].vel = p[i][1]
-            #set mass
             self.p[i].mass = p[i][2]
-            #set e
             self.p[i].e = p[i][3]
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        '''return:system: total momentum, ball 1&2: pos, vel, momentum.'''
+        '''returns a list with [a pos, b pos, a momentum, b momentum, total momentum].'''
         #Update positions
         for i in self.p:
             i.pos += i.vel    
@@ -53,7 +47,8 @@ class space(object):
 
 
 class particle(object):
-    pos =[0, 0]
-    vel = [0, 0]
+    pos = 0
+    vel = 0
     mass = 0
     e = 0
+
