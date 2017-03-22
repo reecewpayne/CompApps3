@@ -10,39 +10,45 @@ class space(object):
         self.p = [particle(), particle()]
         for i in range(2):
             #Extract pos, vel, mass and e for each particle
-            self.p[i].pos = p[i][0]
-            self.p[i].vel = p[i][1]
-            self.p[i].mass = p[i][2]
-            self.p[i].e = p[i][3]
+            self.p[i].pos = float(p[i][0])
+            self.p[i].vel = float(p[i][1])
+            self.p[i].mass = float(p[i][2])
+            self.p[i].e = float(p[i][3])
 
+        self.mt = self.p[0].mass + self.p[1].mass
+        self.dm = self.p[0].mass - self.p[1].mass
     def __iter__(self):
         return self
 
     def __next__(self):
         '''returns a list with [a pos, b pos, a momentum, b momentum, total momentum].'''
-        #Update positions
-        for i in self.p:
-            i.pos += i.vel    
-            #Wall colision check
-            if (i.pos <= 0) or (i.pos >= 530):
-                i.vel = -(i.e * i.vel)
-
+        
         a = self.p[0]
         b = self.p[1]
+        mt = self.mt
+        dm = self.dm
+
         #Check distance between particles
-        if b.pos - a.pos <= 60:
+        if abs(b.pos - a.pos) <= 60:
             #If particles collided/overlapped, determine if moving towards eachother
             relVel = a.vel - b.vel
             if (relVel > 0):
+                print('collision')
                 e = min(a.e, b.e)
-                impulse = (-(1+e)*relVel)/((1/a.mass)+(1/b.mass))
-                a.vel -= (1/a.mass)*impulse
-                b.vel += (1/a.mass)*impulse
-        a.momentum = a.mass*a.vel
-        b.momentum = b.mass*b.vel
-        yield [a.pos, b.pos, a.momentum, b.momentum, sum(a.momentum, b.momentum)]
+                a.vel = e*(((a.vel*dm)+(2*b.vel*b.mass))/mt)
+                b.vel = e*(((b.vel*dm)-(2*a.vel*a.mass))/mt)
+        a.momentum = abs(a.mass*a.vel)
+        b.momentum = abs(b.mass*b.vel)
 
-        return self
+        for i in self.p:   
+            #Wall colision check
+            if ((i.pos <= 30) and (i.vel < 0)) or ((i.pos >= 560) and (i.vel > 0)):
+                print('Wall')
+                i.vel = -(i.e * i.vel)
+            #Update Positions
+            i.pos += i.vel 
+
+        return [a.pos, b.pos, a.momentum, b.momentum, a.momentum + b.momentum]
 
 
 
@@ -51,4 +57,3 @@ class particle(object):
     vel = 0
     mass = 0
     e = 0
-
