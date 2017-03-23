@@ -1,0 +1,23 @@
+Test 1 - Invalid input:
+If the physics code is called with variables that do not satisfy the format for an integer or float, the code will terminate with ValueError: could not convert string to float
+
+Test 2 - Valid input:
+When called with 'normal' values,  the code responds as expected, with the particles seen to reverse direction as expected, with a slight loss in total KE in the system.
+
+Test 3 - Out of boundary:
+The simulation does not raise an exception to the particles being out of boundaries, simulating the particles regardless.
+
+Test 4 - 0 Velocity test:
+The simulation does not raise an exception, simply allowing the simulation to continue with no changes in the system indefinetly.
+
+Test 5 - 0 Mass test:
+The simulation does not raise exception to a 0 mass particle, instead continuing to simulate the particles with non-realistic behaviours.
+
+Test 6 - Inelastic test:
+As expected, the particles have 0 velocity after the collision and remain stationary 'joined together'.
+
+Test 7 - Elastic test:
+During the fully elastic test KE is conserved as expected. There is a small creepage of 'energy' into the system due to the limitations of floating point arithmetic.
+
+Test 8 - Super elastic test:
+As expected, velocity and therefore momentum grow after each collision, resulting in very frequent collisions and velocities too large for the 'tick rate' of the simulation.
