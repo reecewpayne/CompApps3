@@ -8,14 +8,14 @@ class space(object):
     def __init__(self, p):
         '''Initiate particles with passed conditions:[[pos, vel, mass, e], ...]'''
         #Exclude/include defaults as required
-        p[0][0] = 40
+        #p[0][0] = 40
         #p[0][0]
         #p[0][0]
-        p[0][0] = 0.8
-        p[1][0] = 140
+        #p[0][0] = 0.8
+        #p[1][0] = 140
         #p[1][0]
         #p[1][0]
-        p[1][0] = 0.8
+        #p[1][0] = 0.8
         self.p = [particle(), particle()]
         for i in range(2):
             #Extract pos, vel, mass and e for each particle
