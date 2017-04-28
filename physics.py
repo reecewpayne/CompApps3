@@ -48,7 +48,7 @@ class space(object):
             #Update Positions
             i.pos += i.vel 
 
-        return [int(a.pos), int(b.pos), int(a.momentum), int(b.momentum), int(a.momentum + b.momentum)]
+        return [int(a.vel), int(b.vel), int(a.momentum), int(b.momentum), int(a.momentum + b.momentum)]
 
 
 
