@@ -10,31 +10,37 @@ def test_f(data):
         e = sys.exc_info()[0]
         print( "<p>Error: %s</p>" % e)
 
-
 print('Test 1')
 test_f('asdf') #Inavlid input test
 input('\n\n\n')
 print('Test 2')
+print('Pos 1 / Pos 2 / Momentum 1 / Momentum 2 / Momentum total')
 test_f([[40, 5, 20, 0.9],[140, -2, 30, 0.8]]) #Valid inputs test
 input('\n\n\n')
 print('Test 3')
+print('Pos 1 / Pos 2 / Momentum 1 / Momentum 2 / Momentum total')
 test_f([[0, 5, 20, 0.9],[1000, -2, 30, 0.8]]) #out of boundary test
 input('\n\n\n')
 print('Test 4')
+print('Pos 1 / Pos 2 / Momentum 1 / Momentum 2 / Momentum total')
 test_f([[40, 0, 20, 0.9],[140, 0, 30, 0.8]]) #0 Velocity test
 input('\n\n\n')
 print('Test 5')
+print('Pos 1 / Pos 2 / Momentum 1 / Momentum 2 / Momentum total')
 test_f([[40, 5, 0, 0.9],[140, -2, 30, 0.8]]) #0 mass test
 input('\n\n\n')
 print('Test 6')
+print('Pos 1 / Pos 2 / Momentum 1 / Momentum 2 / Momentum total')
 test_f([[40, 5, 20, 0],[140, -2, 30, 0.8]]) #Inelastic test
 input('\n\n\n')
 print('Test 7')
+print('Pos 1 / Pos 2 / Momentum 1 / Momentum 2 / Momentum total')
 test_f([[40, 5, 20, 1],[140, -2, 30, 1]]) #Fully Elastic
 input('\n\n\n')
 print('Test 8')
+print('Pos 1 / Pos 2 / Momentum 1 / Momentum 2 / Momentum total')
 test_f([[40, 5, 20, 2],[140, -2, 30, 2]]) #Super Elastic
-
+print('\n\n\n')
 
 #User manual tests.
 data = [[],[]]
