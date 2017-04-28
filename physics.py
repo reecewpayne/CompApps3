@@ -20,7 +20,7 @@ class space(object):
     def __iter__(self):
         return self
 
-    def __next__(self):
+    def next(self):
         '''returns a list with [a pos, b pos, a momentum, b momentum, total momentum].'''
         
         a = self.p[0]
