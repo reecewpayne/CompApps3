@@ -31,26 +31,40 @@ def Eq():
 
 
 def start():
-    flag = False
-    data =[[40, Vel1.get(), Mass1.get(), 0.9],[440, Vel2.get(), Mass2.get(), 0.9]]
-    sim = physics.space(data)
-    if not flag:
-        main_window.after(250, iterate, sim)
+    global running
+    if running:
+        running = False
+    else:
+        running = True
+        redraw()
+        data =[[70, Vel1.get(), Mass1.get(), 0.9],[470, Vel2.get(), Mass2.get(), 0.9]]
+        sim = physics.space(data)
+        if running:
+            main_window.after(10, iterate, sim)
 
 def iterate(sim):
     print('iterating')
     i = sim.next()
     print i
-    can.move('ball_1', i[0], 0)
-    can.move('ball_2', i[1], 0)
+    can.coords('ball_1', i[0]-30, 100, i[0]+30, 160)
+    can.coords('ball_2', i[1]-30, 100, i[1]+30, 160)
+    momentum1.configure(text="%i" % i[2])
+    momentum2.configure(text="%i" % i[3])
+    momentumT.configure(text="%i" % i[4])
+    if running:
+        main_window.after(10, iterate, sim)
+
+def redraw():
+    #Creates The balls on screen
+    global ball_1
+    global ball_2
+    can.delete(ball_1)
+    can.delete(ball_2)
+    ball_1 = can.create_oval(40,100, 100, 160, fill="orange", tags='ball_1')
+    ball_2 = can.create_oval(440,100, 500,160, fill="black", tags='ball_2')
 
 
-def stop():
-    flag = True
-
-flag = False
-ball_1_x = 40
-ball_2_x = 440
+running = False
 
 #Start TK
 main_window = Tk()
@@ -64,8 +78,8 @@ can.create_rectangle(10,10,590,325, fill="#F5F5F5") #Animation box
 can.create_rectangle(600,10,790,490, fill="#F5F5F5") #Information box
 
 #Creates The balls on screen
-ball_1 = can.create_oval(ball_1_x,100, ball_1_x+60, 160, fill="orange", tags='ball_1')
-ball_2 = can.create_oval(ball_2_x,100, ball_2_x+60,160, fill="black", tags='ball_2')
+ball_1 = can.create_oval(40,100, 100, 160, fill="orange", tags='ball_1')
+ball_2 = can.create_oval(440,100, 500,160, fill="black", tags='ball_2')
 
 
 
@@ -86,21 +100,17 @@ button3_window = can.create_window(770, 390, anchor=NE, window=button3)
 #button4.configure(relief= SOLID,width = 20, height= 2, borderwidth=3, bg="#9AC7BF", activebackground = "#33B5E5") 
 #button4_window = can.create_window(770, 440, anchor=NE, window=button4)
 
-button_play = Button( text = ">")
-button_play.configure(width = 5, bg="#9AC7BF", activebackground = "#33B5E5", command=start) 
-button_play_window = can.create_window(560, 280, window=button_play)
-
-button_pause = Button( text = "||")
-button_pause.configure(width = 5, bg="#9AC7BF", activebackground = "#33B5E5", command=stop) 
-button_pause_window = can.create_window(560, 310, window=button_pause)
+button_play = Button( text = "Play / Reset")
+button_play.configure(width = 20, bg="#9AC7BF", activebackground = "#33B5E5", command=start) 
+button_play_window = can.create_window(500, 310, window=button_play)
 
 
 
 # slider configurations settings
-Mass1 = Scale(label= "Mass (Kg)", orient='horizontal',length= 130,from_=1, to=50)
+Mass1 = Scale(label= "Mass (Kg)", orient='horizontal',length= 130,from_=10, to=50)
 Mass1_window = can.create_window(130, 380, window=Mass1)
 
-Mass2 = Scale(orient='horizontal',length=130, from_=1, to=50)
+Mass2 = Scale(orient='horizontal',length=130, from_=10, to=50)
 Mass2_window = can.create_window(130, 440, window=Mass2)
 
 Vel1 = Scale(label= "Velocity (m/s)",orient='horizontal',length= 130,from_=1, to=10)
@@ -127,30 +137,31 @@ labelM2_window = can.create_window(450, 416, window=labelM2)
 labelMT = Label(text= "Momentum Total")
 labelMT_window = can.create_window(440, 472, window=labelMT)
 
-Title = Label( bg="#F5F5F5", font=20, text= """The Law of Conservation
+Title = Label( bg="#F5F5F5", font=("Courier", 12), text= """The Law of
+Conservation
 of Momentum""")
-Title_window = can.create_window(695, 50, window=Title)
+Title_window = can.create_window(695, 50, width = 180, window=Title)
 
-sub = Label( bg="#F5F5F5", font=10, text= """In a collision
+sub = Label( bg="#F5F5F5", font=("Courier", 10), text= """In a collision
 between two objects,
 the total momentum
-is unchanged. Meaning
+is unchanged, meaning
 the velocities of both
-objects change but does
-not alter the total
-momentum.""")
-sub_window = can.create_window(695, 180, window=sub)
+objects change but
+still add up to the
+same total momentum.""")
+sub_window = can.create_window(695, 180, width = 180, window=sub)
 
 
 
 # boxes to display momentum readouts 
-momentum1 = Text(height=2, width=10,relief= SOLID)
+momentum1 = Label(height=2, width=10,relief= SOLID)
 momentum_window= can.create_window(550,360, window=momentum1)
 
-momentum2 = Text(height=2, width=10,relief= SOLID)
+momentum2 = Label(height=2, width=10,relief= SOLID)
 momentum_window= can.create_window(550,416, window=momentum2)
 
-momentumT = Text(height=2, width=10,relief= SOLID)
+momentumT = Label(height=2, width=10,relief= SOLID)
 momentum_window= can.create_window(550,472, window=momentumT)
 
 

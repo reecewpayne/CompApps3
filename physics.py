@@ -42,13 +42,13 @@ class space(object):
 
         for i in self.p:   
             #Wall colision check
-            if ((i.pos <= 30) and (i.vel < 0)) or ((i.pos >= 560) and (i.vel > 0)):
+            if ((i.pos <= 40) and (i.vel < 0)) or ((i.pos >= 550) and (i.vel > 0)):
                 print('Wall')
                 i.vel = -(i.e * i.vel)
             #Update Positions
             i.pos += i.vel 
 
-        return [int(a.vel), int(b.vel), int(a.momentum), int(b.momentum), int(a.momentum + b.momentum)]
+        return [int(a.pos), int(b.pos), int(a.momentum), int(b.momentum), int(a.momentum + b.momentum)]
 
 
 
