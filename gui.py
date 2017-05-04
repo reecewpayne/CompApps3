@@ -2,33 +2,63 @@ from Tkinter import*
 import tkMessageBox
 import physics
 
+def a1():
+    tkMessageBox.showinfo("Q1","ANSWER: 80kgms-1")
+    
+def a2():
+    tkMessageBox.showinfo("Q2","ANSWER: 160kgms-1  ")
+
+def a3():
+    tkMessageBox.showinfo("Q3","240J of the two balls")
+
 def Info():
     '''Information popup'''
     toplevel = Toplevel()
     toplevel.title("Info")
-    photo = PhotoImage(file="Capture.gif")
+    photo = PhotoImage(file="Info-(1).gif")
     label1 = Label(toplevel, image = photo)
     label1.image = photo
     label1.pack()
-
+   
 def K():
     '''Knowledge popup'''
     toplevel1 = Toplevel()
     toplevel1.title("Knowledge")
-    photo1 = PhotoImage(file="momentum.gif")
-    label2 = Label(toplevel1, image = photo1,)
-    label2.image = photo1
-    label2.pack()
+    inlabel = Label(toplevel1,text= '''Adjust the values of the balls to obtain an answer for the following questions:
+
+    1)Determine the momentum of ball 1 of mass m = 20kg moving at a velocity of 4ms-1''')
+    button_a1 = Button(toplevel1, text = "Answer", command=a1)
+    button_a1.grid(column=0 ,row=2)
+    inlabel.grid(row=1)
+    
+    inlabel1 = Label(toplevel1,text= ''' 2)If ball 1 hits ball 2 which is moving at a velocity of 2ms-1 and a mass of 40kg 
+    What is the total momentum after the collision?''')
+    button_a2 = Button(toplevel1, text = "Answer",command=a2)
+    button_a2.grid(column=0 ,row=4)
+    inlabel1.grid(row=3)
+
+    inlabel2 = Label(toplevel1,text= ''' 3)What is the total kinetic energy?''')
+    button_a3 = Button(toplevel1, text = "Answer",command=a3)
+    button_a3.grid(column=0 ,row=6)
+    inlabel2.grid(row=5)
 
 def Eq():
     '''Equations popup'''
     toplevel2 = Toplevel()
     toplevel2.title("Equations")
-    photo2 = PhotoImage(file="elacol2.gif")
+    photo2 = PhotoImage(file="equations1.gif")
     label3 = Label(toplevel2, image = photo2,)
     label3.image = photo2
     label3.pack()
 
+def Help():
+    '''Help popup'''
+    toplevel3 = Toplevel()
+    toplevel3.title("Help")
+    photo3 = PhotoImage(file="helpbutton.gif")
+    label4 = Label(toplevel3, image = photo3,)
+    label4.image = photo3
+    label4.pack()
 
 def start():
     global running
@@ -90,33 +120,33 @@ button1_window = can.create_window(770, 290, anchor=NE, window=button1)
 
 button2 = Button( text = "Knowledge", anchor = W, command = K)
 button2.configure(relief= SOLID,width = 20,height=2, borderwidth=3, bg="#9AC7BF", activebackground = "#33B5E5") 
-button2_window = can.create_window(770, 340, anchor=NE, window=button2)
+button2_window = can.create_window(770, 360, anchor=NE, window=button2)
 
 button3 = Button( text = "Equations", anchor = W, command= Eq)
 button3.configure(relief= SOLID,width = 20,height =2, borderwidth=3, bg="#9AC7BF", activebackground = "#33B5E5") 
-button3_window = can.create_window(770, 390, anchor=NE, window=button3)
+button3_window = can.create_window(770, 430, anchor=NE, window=button3)
 
-#button4 = Button( text = "Explore", anchor = W)
-#button4.configure(relief= SOLID,width = 20, height= 2, borderwidth=3, bg="#9AC7BF", activebackground = "#33B5E5") 
-#button4_window = can.create_window(770, 440, anchor=NE, window=button4)
+button4 = Button( text = "Help?", anchor = W)
+button4.configure(relief= SOLID,width = 5, height= 1, borderwidth=1, bg="#9AC7BF", activebackground = "#33B5E5",command=Help) 
+button4_window = can.create_window(20, 20, anchor=NW, window=button4)
 
 button_play = Button( text = "Play / Reset")
-button_play.configure(width = 20, bg="#9AC7BF", activebackground = "#33B5E5", command=start) 
-button_play_window = can.create_window(500, 310, window=button_play)
+button_play.configure(relief = SOLID, width = 20, borderwidth=1, bg="#9AC7BF", activebackground = "#33B5E5", command=start) 
+button_play_window = can.create_window(510, 310, window=button_play)
 
 
 
 # slider configurations settings
-Mass1 = Scale(label= "Mass (Kg)", orient='horizontal',length= 130,from_=10, to=50)
+Mass1 = Scale(label= "Mass (Kg)", orient='horizontal',length= 130,from_=10, to=70)
 Mass1_window = can.create_window(130, 380, window=Mass1)
 
-Mass2 = Scale(orient='horizontal',length=130, from_=10, to=50)
+Mass2 = Scale(orient='horizontal',length=130, from_=10, to=70)
 Mass2_window = can.create_window(130, 440, window=Mass2)
 
-Vel1 = Scale(label= "Velocity (m/s)",orient='horizontal',length= 130,from_=1, to=10)
+Vel1 = Scale(label= "Velocity (m/s)",orient='horizontal',length= 130,from_=0, to=5)
 Vel1_window = can.create_window(280, 380, window=Vel1)
 
-Vel2 = Scale(orient='horizontal',length=130, from_=-1, to=-10)
+Vel2 = Scale(orient='horizontal',length=130, from_=0, to=-5)
 Vel2_window = can.create_window(280, 440, window=Vel2)
 
 
@@ -163,6 +193,7 @@ momentum_window= can.create_window(550,416, window=momentum2)
 
 momentumT = Label(height=2, width=10,relief= SOLID)
 momentum_window= can.create_window(550,472, window=momentumT)
+
 
 
 main_window.mainloop()
